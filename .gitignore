@@ -1,9 +1,3 @@
-.gitignore
-/.idea
-/.mvn
-/target
-provaspringjava15.iml
-
 HELP.md
 target/
 !.mvn/wrapper/maven-wrapper.jar
