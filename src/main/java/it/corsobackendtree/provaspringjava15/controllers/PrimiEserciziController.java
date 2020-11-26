@@ -1,4 +1,4 @@
-package it.corsobackendtree.provaspringjava15;
+package it.corsobackendtree.provaspringjava15.controllers;
 
 import it.corsobackendtree.provaspringjava15.services.ContatoreService;
 import it.corsobackendtree.provaspringjava15.services.TrisService;
