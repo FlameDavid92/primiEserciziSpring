@@ -1,6 +1,7 @@
 package it.corsobackendtree.provaspringjava15;
 
 import it.corsobackendtree.provaspringjava15.services.ContatoreService;
+import it.corsobackendtree.provaspringjava15.services.TrisService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,5 +25,27 @@ public class PrimiEserciziController {
     @GetMapping("/esercizio3")
     int contatore(@Autowired ContatoreService cs){
         return cs.visita();
+    }
+
+    /*Esercizi 4-5*/
+    @GetMapping("/{idPartita}/new")
+    String nuovoGioco(@Autowired TrisService ts, @PathVariable("idPartita") int idPartita){
+        return ts.nuovoGioco(idPartita);
+    }
+
+    @GetMapping("/{idPartita}/move/{posI}/{posJ}")
+    String inserisciMossa(@Autowired TrisService ts, @PathVariable("idPartita") int idPartita,
+                          @PathVariable("posI") int posI, @PathVariable("posJ") int posJ){
+        return ts.gioca(idPartita,posI,posJ);
+    }
+
+    @GetMapping("/{idPartita}/back")
+    String cancellaUltimaMossa(@Autowired TrisService ts, @PathVariable("idPartita") int idPartita){
+        return ts.back(idPartita);
+    }
+
+    @GetMapping("/{idPartita}/state")
+    String statoPartita(@Autowired TrisService ts, @PathVariable("idPartita") int idPartita){
+        return ts.statoAttuale(idPartita);
     }
 }
