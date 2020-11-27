@@ -7,13 +7,17 @@ public class TrisGame {
     public enum GameResp{INDEXERR, NOTVOIDERR, PLAYERWIN, SERVERWIN, TIE, CONTINUE}
 
     private final ValoreCella[][] game;
+    private final ValoreCella valorePlayer;
+    private final ValoreCella valoreServer;
     private int lastPlayerI = -1;
     private int lastPlayerJ = -1;
     private int lastServerI = -1;
     private int lastServerJ = -1;
     private int movesCounter;
 
-    public TrisGame(){
+    public TrisGame(ValoreCella valorePlayer){
+        this.valorePlayer = valorePlayer;
+        this.valoreServer = (valorePlayer == ValoreCella.O) ? ValoreCella.X : ValoreCella.O;
         movesCounter = 0;
         game = new ValoreCella[3][3];
         for(int i=0; i<3; i++) {
@@ -27,7 +31,7 @@ public class TrisGame {
         if(i>=3 || i<0 || j>=3 || j<0) return GameResp.INDEXERR;
         if(game[i][j] == ValoreCella.VUOTA){
             movesCounter++;
-            game[i][j] = ValoreCella.X;
+            game[i][j] = valorePlayer;
             lastPlayerI = i;
             lastPlayerJ = j;
             if(checkEndGame()) return GameResp.PLAYERWIN;
@@ -46,7 +50,7 @@ public class TrisGame {
             i = rndm.nextInt(3);
             j = rndm.nextInt(3);
         }while(game[i][j] != ValoreCella.VUOTA);
-        game[i][j] = ValoreCella.O;
+        game[i][j] = valoreServer;
         lastServerI = i;
         lastServerJ = j;
     }
@@ -76,6 +80,7 @@ public class TrisGame {
 
     public String stringGame(){
         StringBuilder str = new StringBuilder();
+        str.append("Tuo simbolo: "+valorePlayer+"\n");
         for(int i=0; i<3; i++) {
             for(int j=0; j<3; j++) {
                 str.append("|");

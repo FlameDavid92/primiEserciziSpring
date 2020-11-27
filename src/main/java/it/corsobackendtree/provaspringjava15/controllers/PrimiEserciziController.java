@@ -28,9 +28,10 @@ public class PrimiEserciziController {
     }
 
     /*Esercizi 4-5*/
-    @GetMapping("/{idPartita}/new")
-    String nuovoGioco(@Autowired TrisService ts, @PathVariable("idPartita") int idPartita){
-        return ts.nuovoGioco(idPartita);
+    @GetMapping("/{idPartita}/new/{simboloPlayer}")
+    String nuovoGioco(@Autowired TrisService ts, @PathVariable("idPartita") int idPartita,
+                      @PathVariable("simboloPlayer") String simboloPlayer){
+        return ts.nuovoGioco(idPartita, simboloPlayer);
     }
 
     @GetMapping("/{idPartita}/move/{posI}/{posJ}")

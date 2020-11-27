@@ -14,34 +14,38 @@ public class TrisService {
         if(game == null) return "Vai a /"+idPartita+"/new per iniziare un nuovo gioco!\n";
         String ret = "";
         TrisGame.GameResp gameResp = game.gioca(i, j);
-        switch (gameResp){
-            case INDEXERR:
-                ret+="Indici non corretti!\n";
-                break;
-            case NOTVOIDERR:
-                ret+="Cella già occupata!\n";
-                break;
-            case PLAYERWIN:
-                ret+="Hai vinto!!!\n";
-                ret+="Vai a /"+idPartita+"/new per rigiocare!\n";
-                games.put(idPartita,null);
-                break;
-            case SERVERWIN:
-                ret+="Hai perso!\n";
-                ret+="Vai a /"+idPartita+"/new per rigiocare!\n";
-                games.put(idPartita,null);
-                break;
-            case TIE:
-                ret+="Partita conclusa in parità.\n";
-                ret+="Vai a /"+idPartita+"/new per rigiocare!\n";
-                games.put(idPartita,null);
+        switch (gameResp) {
+            case INDEXERR -> ret += "Indici non corretti!\n";
+            case NOTVOIDERR -> ret += "Cella già occupata!\n";
+            case PLAYERWIN -> {
+                ret += "Hai vinto!!!\n";
+                ret += "Vai a /" + idPartita + "/new per rigiocare!\n";
+                games.put(idPartita, null);
+            }
+            case SERVERWIN -> {
+                ret += "Hai perso!\n";
+                ret += "Vai a /" + idPartita + "/new per rigiocare!\n";
+                games.put(idPartita, null);
+            }
+            case TIE -> {
+                ret += "Partita conclusa in parità.\n";
+                ret += "Vai a /" + idPartita + "/new per rigiocare!\n";
+                games.put(idPartita, null);
+            }
         }
         return ret+game.stringGame();
     }
 
-    public String nuovoGioco(int idPartita){
+    public String nuovoGioco(int idPartita, String simboloPlayer){
+        if(simboloPlayer.length() > 1) return "Simbolo player non corretto!";
+        TrisGame.ValoreCella valorePlayer = null;
+        if(simboloPlayer.toLowerCase().equals("o")) valorePlayer = TrisGame.ValoreCella.O;
+        else if(simboloPlayer.toLowerCase().equals("x")) valorePlayer = TrisGame.ValoreCella.X;
+
+        if(valorePlayer == null) return "Simbolo player non corretto!";
+
         String ret="";
-        if(games.put(idPartita, new TrisGame()) == null){
+        if(games.put(idPartita, new TrisGame(valorePlayer)) == null){
             ret+="Nuova partita iniziata!\n";
         }else{
             ret+="Partita riavviata!\n";
