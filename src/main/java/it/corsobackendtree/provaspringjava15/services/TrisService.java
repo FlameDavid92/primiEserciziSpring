@@ -68,4 +68,15 @@ public class TrisService {
         if(game == null) return "Vai a /"+idPartita+"/new per iniziare un nuovo gioco!\n";
         return game.stringGame();
     }
+
+    public String[][] generaMatrice(int interoMatrice){
+        String[][] matrice = new String[3][3];
+        int tempInt = interoMatrice;
+        for(int i=8; i>=0; i--){
+            int val = tempInt%10;
+            matrice[i/3][i%3] = (val == 2) ? "X" : ((val == 1) ? "O" : " ");
+            tempInt /= 10;
+        }
+        return matrice;
+    }
 }

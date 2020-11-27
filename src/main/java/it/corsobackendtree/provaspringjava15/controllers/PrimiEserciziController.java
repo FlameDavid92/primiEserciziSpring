@@ -49,4 +49,9 @@ public class PrimiEserciziController {
     String statoPartita(@Autowired TrisService ts, @PathVariable("idPartita") int idPartita){
         return ts.statoAttuale(idPartita);
     }
+
+    @GetMapping("/interotomatricetris/{interoMatrice}")
+    String[][] generaMatrice(@Autowired TrisService ts, @PathVariable("interoMatrice") int interoMatrice){
+        return ts.generaMatrice(interoMatrice);
+    }
 }
