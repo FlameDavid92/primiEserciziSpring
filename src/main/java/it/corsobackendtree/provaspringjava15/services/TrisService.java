@@ -38,11 +38,11 @@ public class TrisService {
 
     public String nuovoGioco(int idPartita, String simboloPlayer){
         if(simboloPlayer.length() > 1) return "Simbolo player non corretto!";
+
         TrisGame.ValoreCella valorePlayer = null;
         if(simboloPlayer.toLowerCase().equals("o")) valorePlayer = TrisGame.ValoreCella.O;
         else if(simboloPlayer.toLowerCase().equals("x")) valorePlayer = TrisGame.ValoreCella.X;
-
-        if(valorePlayer == null) return "Simbolo player non corretto!";
+        else return "Simbolo player non corretto!";
 
         String ret="";
         if(games.put(idPartita, new TrisGame(valorePlayer)) == null){
@@ -67,16 +67,5 @@ public class TrisService {
         TrisGame game = games.get(idPartita);
         if(game == null) return "Vai a /"+idPartita+"/new per iniziare un nuovo gioco!\n";
         return game.stringGame();
-    }
-
-    public String[][] generaMatrice(int interoMatrice){
-        String[][] matrice = new String[3][3];
-        int tempInt = interoMatrice;
-        for(int i=8; i>=0; i--){
-            int val = tempInt%10;
-            matrice[i/3][i%3] = (val == 2) ? "X" : ((val == 1) ? "O" : " ");
-            tempInt /= 10;
-        }
-        return matrice;
     }
 }

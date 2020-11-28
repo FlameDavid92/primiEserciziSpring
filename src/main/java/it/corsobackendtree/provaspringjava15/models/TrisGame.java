@@ -3,7 +3,7 @@ package it.corsobackendtree.provaspringjava15.models;
 import java.util.Random;
 
 public class TrisGame {
-    public enum ValoreCella{ VUOTA,X,O}
+    public enum ValoreCella{VUOTA,X,O}
     public enum GameResp{INDEXERR, NOTVOIDERR, PLAYERWIN, SERVERWIN, TIE, CONTINUE}
 
     private final ValoreCella[][] game;
@@ -35,9 +35,10 @@ public class TrisGame {
             lastPlayerI = i;
             lastPlayerJ = j;
             if(checkEndGame()) return GameResp.PLAYERWIN;
-            serverMove();
-            if(checkEndGame()) return GameResp.SERVERWIN;
-            if(movesCounter == 9) return GameResp.TIE;
+            if(movesCounter<9) {
+                serverMove();
+                if(checkEndGame()) return GameResp.SERVERWIN;
+            }else if(movesCounter == 9) return GameResp.TIE;
             return GameResp.CONTINUE;
         } return GameResp.NOTVOIDERR;
     }
@@ -50,6 +51,7 @@ public class TrisGame {
             i = rndm.nextInt(3);
             j = rndm.nextInt(3);
         }while(game[i][j] != ValoreCella.VUOTA);
+        movesCounter++;
         game[i][j] = valoreServer;
         lastServerI = i;
         lastServerJ = j;
@@ -80,7 +82,7 @@ public class TrisGame {
 
     public String stringGame(){
         StringBuilder str = new StringBuilder();
-        str.append("Tuo simbolo: "+valorePlayer+"\n");
+        str.append("Tuo simbolo: ").append(valorePlayer).append("\n");
         for(int i=0; i<3; i++) {
             for(int j=0; j<3; j++) {
                 str.append("|");

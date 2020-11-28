@@ -2,6 +2,7 @@ package it.corsobackendtree.provaspringjava15.controllers;
 
 import it.corsobackendtree.provaspringjava15.services.ContatoreService;
 import it.corsobackendtree.provaspringjava15.services.TrisService;
+import it.corsobackendtree.provaspringjava15.services.TrisService2;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -50,8 +51,29 @@ public class PrimiEserciziController {
         return ts.statoAttuale(idPartita);
     }
 
-    @GetMapping("/interotomatricetris/{interoMatrice}")
-    String[][] generaMatrice(@Autowired TrisService ts, @PathVariable("interoMatrice") int interoMatrice){
+    /*Esercizi 4-5 con matrice di gioco come intero*/
+    @GetMapping("/special/{idPartita}/new/{simboloPlayer}")
+    String nuovoGioco2(@Autowired TrisService2 ts, @PathVariable("idPartita") int idPartita,
+                      @PathVariable("simboloPlayer") String simboloPlayer){
+        return ts.nuovoGioco2(idPartita, simboloPlayer);
+    }
+    @GetMapping("/special/{idPartita}/move/{posI}/{posJ}")
+    String inserisciMossa2(@Autowired TrisService2 ts, @PathVariable("idPartita") int idPartita,
+                          @PathVariable("posI") int posI, @PathVariable("posJ") int posJ){
+        return ts.gioca2(idPartita,posI,posJ);
+    }
+    @GetMapping("/special/{idPartita}/back")
+    String cancellaUltimaMossa2(@Autowired TrisService2 ts, @PathVariable("idPartita") int idPartita){
+        return ts.back2(idPartita);
+    }
+    @GetMapping("/special/{idPartita}/state")
+    String statoPartita2(@Autowired TrisService2 ts, @PathVariable("idPartita") int idPartita){
+        return ts.statoAttuale2(idPartita);
+    }
+
+    /*Prova rappresentazione matrice di gioco con intero*/
+    @GetMapping("/special/interotomatricetris/{interoMatrice}")
+    String[][] generaMatrice(@Autowired TrisService2 ts, @PathVariable("interoMatrice") int interoMatrice){
         return ts.generaMatrice(interoMatrice);
     }
 }
