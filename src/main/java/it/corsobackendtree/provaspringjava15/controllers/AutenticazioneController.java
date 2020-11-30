@@ -36,6 +36,7 @@ public class AutenticazioneController {
 
     @GetMapping("/")
     public String readCookie(@CookieValue(value = "triscookie", defaultValue = "") String username) {
-        return "Il tuo username è " + username;
+        if(username == "") return "Effettua il login.";
+        else return "Il tuo username è " + username;
     }
 }

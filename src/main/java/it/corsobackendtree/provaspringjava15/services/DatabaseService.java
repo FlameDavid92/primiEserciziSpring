@@ -9,6 +9,7 @@ import java.util.UUID;
 public class DatabaseService {
     private static final HashMap<String, UserCriptato> users = new HashMap<>(); //key:username, value:user
 
+
     public boolean registrazione(User user){
         UserCriptato newUser = new UserCriptato(user.getUsername(), user.getPassword());
         if(users.containsKey(user.getUsername())) return false;
